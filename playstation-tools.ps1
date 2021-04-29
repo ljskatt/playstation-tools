@@ -10,6 +10,8 @@ add-type @"
     }
 "@
 
+$ProgressPreference = 'SilentlyContinue'
+
 $loop = $true
 while ($loop -eq $true) {
     Write-Output -InputObject ''
@@ -56,8 +58,10 @@ while ($loop -eq $true) {
             [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
             $patch = (Invoke-RestMethod -ErrorAction "SilentlyContinue" -Uri "https://a0.ww.np.dl.playstation.net/tpl/np/$response/$response-ver.xml").titlepatch.tag.package | Select-Object -Last 1
             if ($patch) {
-                Write-Output ('Newest patch: ' + $patch.version)
-                Write-Output ('Url: ' + $patch.url)
+                Write-Output -InputObject ('Patch version found: ' + $patch.version)
+                Write-Output -InputObject "Starting download of patch"
+                Invoke-RestMethod -Uri ($patch.url) -OutFile ($patch.url.Split('/') | Select-Object -Last 1)
+                Write-Output -InputObject ('Patch file: ' + ($patch.url.Split('/') | Select-Object -Last 1) + ' downloaded')
                 $loop = $false
             }
             else {
