@@ -1,4 +1,8 @@
 # Playstation-tools
+
+> [!WARNING]
+> This project is no longer maintained. Please use [playstation-rif2rap](https://github.com/ljskatt/playstation-rif2rap) instead.
+
 A playstation tool that can helps you making a .rap file or helps you find ps3 game patch for RPCS3
 
 ## rif2rap
